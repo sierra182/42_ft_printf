@@ -6,7 +6,7 @@
 /*   By: svidot <svidot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 08:04:59 by seblin            #+#    #+#             */
-/*   Updated: 2023/10/30 14:20:21 by svidot           ###   ########.fr       */
+/*   Updated: 2023/10/30 15:54:29 by svidot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,12 @@ int	put_nbr_base(unsigned int n, unsigned int base)
 	
 	size = 0;
 	if (n >= base)
-		size +=	put_nbr_base(nl / base);	
-	if (nl <= 9)
-		ft_putchar_fd(nl % base + 48, 1);
-	else
-		ft_putchar_fd(nl % base + 55, 1);
-	return (size);	
+		size +=	put_nbr_base(n / base, base);	
+	if (n % base <= 9)	
+		ft_putchar_fd(n % base + 48, 1);
+	 else
+		ft_putchar_fd(n % base + 55, 1);
+	return (++size);	
 }
 
 

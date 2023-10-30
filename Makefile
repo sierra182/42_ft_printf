@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: seblin <seblin@student.42.fr>              +#+  +:+       +#+         #
+#    By: svidot <svidot@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/29 08:16:28 by seblin            #+#    #+#              #
-#    Updated: 2023/10/29 11:36:10 by seblin           ###   ########.fr        #
+#    Updated: 2023/10/30 15:13:23 by svidot           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ libft :
 all : libft $(NAME)
 
 $(NAME) : $(OBJECTS) $(LIBFTPATH)
-	ar rcs $@ $^
+	ar rcs $@ $?
 	
 clean :
 	rm -f $(OBJECTS)
