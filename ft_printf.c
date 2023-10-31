@@ -6,7 +6,7 @@
 /*   By: svidot <svidot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 08:04:59 by seblin            #+#    #+#             */
-/*   Updated: 2023/10/31 09:25:03 by svidot           ###   ########.fr       */
+/*   Updated: 2023/10/31 12:33:55 by svidot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	putnbr_base(uintptr_t n, unsigned int base, char casse, char pref)
 	return (++size);
 }
 
-static void	manage_placeholder(const char *s, va_list lst, int *n_item, int *temp)
+static int	manage_placeholder(const char *s, va_list lst, int *n_item, int *temp)
 {
 	if (*s == '%' && ++(*n_item))
 		ft_putchar_fd('%', 1);
@@ -41,7 +41,13 @@ static void	manage_placeholder(const char *s, va_list lst, int *n_item, int *tem
 		ft_putchar_fd(va_arg(lst, int), 1);
 	else if (*s == 's')
 	{
+		
 		temp = (int *) va_arg(lst, char *);
+		if (!temp)
+		{
+			//ft_putstr_fd("(null)\n", 1);
+			return (-1);
+		}
 		*n_item += ft_strlen((char *) temp);
 		ft_putstr_fd((char *) temp, 1);
 	}
@@ -60,6 +66,7 @@ static void	manage_placeholder(const char *s, va_list lst, int *n_item, int *tem
 		*n_item += putnbr_base(va_arg(lst, unsigned int), 16, 'l', 0);
 	else if (*s == 'X')
 		*n_item += putnbr_base(va_arg(lst, unsigned int), 16, 'u', 0);	
+	return (0);
 }
 
 int	ft_printf(const char *s, ...)
@@ -68,13 +75,18 @@ int	ft_printf(const char *s, ...)
 	int		n_item;
 	int		temp;
 
+	
 	temp = 0;
 	n_item = 0;
 	va_start(lst, s);
 	while (*s)
 	{
 		if (*s++ == '%')
-			manage_placeholder(s++, lst, &n_item, &temp);
+		{
+			
+			if(manage_placeholder(s++, lst, &n_item, &temp) == -1)
+				return (-1);
+		}
 		else if (++n_item)			
 			ft_putchar_fd(*(s - 1), 1);			
 	}
@@ -86,7 +98,14 @@ int	ft_printf(const char *s, ...)
 int	main(void)
 {
 	int res;
+////////////
+	res = ft_printf("NULL %s NULL\n", NULL);
+	printf("n_item:%d\n", res);
+	//res = printf("NULL %s NULL\n", NULL);
+	printf("n_item:%d\n", res);
 
+	//("\n");
+	
 	res = ft_printf("bravo\n");
 	printf("n_item:%d\n", res);
 	res = printf("bravo\n");
