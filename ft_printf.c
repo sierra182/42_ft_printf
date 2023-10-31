@@ -6,7 +6,7 @@
 /*   By: seblin <seblin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 08:04:59 by seblin            #+#    #+#             */
-/*   Updated: 2023/10/30 22:28:52 by seblin           ###   ########.fr       */
+/*   Updated: 2023/10/31 08:05:28 by seblin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,11 @@ int	ft_printf(const char *s, ...)
 	{
 		if (*s++ == '%')
 			manage_placeholder(s, lst, &n_item, nbr);
-		else if (n_item++)
+		else if (++n_item)
 			ft_putchar_fd(*(s - 1), 1);
 	}
 	va_end(lst);
-	return (n_item);
+	return (n_item); //valeur neg si pb
 }
 
 #include <stdio.h>
@@ -86,6 +86,6 @@ int	main(void)
 {
 	int res;
 
-	res = ft_printf("bravo%d , %u, %i connard\n", -42, 42, 42);
+	res = ft_printf("bravo connard\n%X\n", 175);
 	printf("%d\n", res);
 }
