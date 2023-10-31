@@ -6,7 +6,7 @@
 /*   By: seblin <seblin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 08:04:59 by seblin            #+#    #+#             */
-/*   Updated: 2023/10/31 17:39:41 by seblin           ###   ########.fr       */
+/*   Updated: 2023/10/31 17:41:55 by seblin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	manage_phlder_seq(const char *s, va_list lst, int *n_item, int *arg)
 	else if (*s == 'p')
 	{
 		arg = (int *) va_arg(lst, void *);
-		if (arg)
+		if (!arg)
 		{
 			arg = (int *) "(nil)";
 			*n_item += ft_strlen((char *) arg);
