@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seblin <seblin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: svidot <svidot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 08:04:59 by seblin            #+#    #+#             */
-/*   Updated: 2023/10/31 08:05:28 by seblin           ###   ########.fr       */
+/*   Updated: 2023/10/31 09:25:03 by svidot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,23 +33,24 @@ static int	putnbr_base(uintptr_t n, unsigned int base, char casse, char pref)
 	return (++size);
 }
 
-static void	manage_placeholder(const char *s, va_list lst, int *n_item, int nbr)
+static void	manage_placeholder(const char *s, va_list lst, int *n_item, int *temp)
 {
-	if (*s == '%' && (*n_item)++)
+	if (*s == '%' && ++(*n_item))
 		ft_putchar_fd('%', 1);
-	else if (*s == 'c' && (*n_item)++)
+	else if (*s == 'c' && ++(*n_item))
 		ft_putchar_fd(va_arg(lst, int), 1);
 	else if (*s == 's')
 	{
-		*n_item += ft_strlen(s);
-		ft_putstr_fd(va_arg(lst, char *), 1);
+		temp = (int *) va_arg(lst, char *);
+		*n_item += ft_strlen((char *) temp);
+		ft_putstr_fd((char *) temp, 1);
 	}
-	else if ((*s == 'd' || *s == 'i') && (*n_item)++)
+	else if ((*s == 'd' || *s == 'i') && ++(*n_item))
 	{
-		nbr = va_arg(lst, int);
-		ft_putnbr_fd(nbr, 1);
-		while (nbr > 9 && (*n_item)++)
-			nbr /= 10;
+		*temp = va_arg(lst, int);
+		ft_putnbr_fd(*temp, 1);
+		while (*temp > 9 && ++(*n_item))
+			*temp /= 10;
 	}
 	else if (*s == 'u')
 		*n_item += putnbr_base(va_arg(lst, unsigned int), 10, 0, 0);
@@ -58,24 +59,24 @@ static void	manage_placeholder(const char *s, va_list lst, int *n_item, int nbr)
 	else if (*s == 'x')
 		*n_item += putnbr_base(va_arg(lst, unsigned int), 16, 'l', 0);
 	else if (*s == 'X')
-		*n_item += putnbr_base(va_arg(lst, unsigned int), 16, 'u', 0);
+		*n_item += putnbr_base(va_arg(lst, unsigned int), 16, 'u', 0);	
 }
 
 int	ft_printf(const char *s, ...)
 {
 	va_list	lst;
 	int		n_item;
-	int		nbr;
+	int		temp;
 
-	nbr = 0;
+	temp = 0;
 	n_item = 0;
 	va_start(lst, s);
 	while (*s)
 	{
 		if (*s++ == '%')
-			manage_placeholder(s, lst, &n_item, nbr);
-		else if (++n_item)
-			ft_putchar_fd(*(s - 1), 1);
+			manage_placeholder(s++, lst, &n_item, &temp);
+		else if (++n_item)			
+			ft_putchar_fd(*(s - 1), 1);			
 	}
 	va_end(lst);
 	return (n_item); //valeur neg si pb
@@ -86,6 +87,18 @@ int	main(void)
 {
 	int res;
 
-	res = ft_printf("bravo connard\n%X\n", 175);
-	printf("%d\n", res);
+	res = ft_printf("bravo\n");
+	printf("n_item:%d\n", res);
+	res = printf("bravo\n");
+	printf("n_item:%d\n", res);
+	
+	res = ft_printf("bravo: %s\n", "deu");
+	printf("n_item:%d\n", res);
+	res = printf("bravo: %s\n", "deu");
+	printf("n_item:%d\n", res);
+	
+	res = ft_printf("b %p j %X c %x b %u j %d c %i c %c e %s t %%\n",&(int) {0}, 175, 175, 42, 42, 42, 'z', "string");
+	printf("n_item:%d\n", res);
+	res = ft_printf("b %p j %X c %x b %u j %d c %i c %c e %s t %%\n",&(int) {0}, 175, 175, 42, 42, 42, 'z', "string");
+	printf("n_item:%d\n", res);
 }
