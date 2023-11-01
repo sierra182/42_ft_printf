@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: seblin <seblin@student.42.fr>              +#+  +:+       +#+         #
+#    By: svidot <svidot@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/29 08:16:28 by seblin            #+#    #+#              #
-#    Updated: 2023/10/31 22:39:03 by seblin           ###   ########.fr        #
+#    Updated: 2023/11/01 11:08:05 by svidot           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,26 +17,23 @@ NAME = libftprintf.a
 SOURCES = ft_printf.c
 OBJECTS = $(SOURCES:.c=.o)
 LIBFTDIR = ./libft
-#LIBFTOPATH = $(wildcard libft/*.o)
-.PHONY : all libft clean fclean re
+LIBFTPATH = ./libft/libft.a
 
-all : libft test $(NAME)
+.PHONY : all libft clean fclean re 
+
+all : libft $(NAME)
 	
 libft : 
-	$(MAKE) -C $(LIBFTDIR) onlyo
-	
+	$(MAKE) -C $(LIBFTDIR)	
 	
 %.o : %.c $(HEADER)
 	$(CC) $(CFLAGS) $< -c -o $@
 
-test :
-	$(eval LIBFTOPATH = $(wildcard libft/*.o))
-
-$(NAME) :: $(OBJECTS) $(LIBFTOPATH)
-	ar rcs $@ $(LIBFTOPATH)
-
-$(NAME) :: $(OBJECTS) $(LIBFTOPATH)
-	ar rcs $@  $?
+$(NAME) :: $(LIBFTPATH)
+	cp $(LIBFTPATH) $(NAME)	
+	
+$(NAME) :: $(OBJECTS) $(LIBFTPATH)
+	ar rcs $@ $(OBJECTS)
 	
 clean :
 	rm -f $(OBJECTS)

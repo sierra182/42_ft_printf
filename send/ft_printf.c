@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seblin <seblin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: svidot <svidot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 08:04:59 by seblin            #+#    #+#             */
-/*   Updated: 2023/10/31 21:33:53 by seblin           ###   ########.fr       */
+/*   Updated: 2023/11/01 11:20:37 by svidot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,32 +103,3 @@ int	ft_printf(const char *s, ...)
 	va_end(lst);
 	return (n_item);
 }
-
-// #include <stdio.h>
-// int	main(void)
-// {
-// 	int res;
-// ////////////////
-// 	res = ft_printf("NULL %s NULL\n", NULL);
-// 	printf("n_item:%d\n", res);
-// 	//res = printf("NULL %s NULL\n", NULL);
-// 	printf("n_item:%d\n", res);
-
-// 	//("\n");
-// 	res = ft_printf("bravo\n");
-// 	printf("n_item:%d\n", res);
-// 	res = printf("bravo\n");
-// 	printf("n_item:%d\n", res);
-
-// 	res = ft_printf("bravo: %s\n", "deu");
-// 	printf("n_item:%d\n", res);
-// 	res = printf("bravo: %s\n", "deu");
-// 	printf("n_item:%d\n", res);
-
-// 	res = ft_printf("b %p j %X c %x b %u j %d c %i c %c e %s 
-//t %%\n",&(int) {0}, 175, 175, 42, 42, 42, 'z', "string");
-// 	printf("n_item:%d\n", res);
-// 	res = ft_printf("b %p j %X c %x b %u j %d c %i c %c e %s t 
-//%%\n",&(int) {0}, 175, 175, 42, 42, 42, 'z', "string");
-// 	printf("n_item:%d\n", res);
-// }

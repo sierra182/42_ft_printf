@@ -12,7 +12,7 @@ SOURCES_BONUS = ft_lstnew_bonus.c ft_lstadd_front_bonus.c ft_lstsize_bonus.c ft_
 				ft_lstdelone_bonus.c ft_lstclear_bonus.c ft_lstiter_bonus.c ft_lstmap_bonus.c
 OBJECTS_BONUS = $(SOURCES_BONUS:.c=.o)
 
-.PHONY: all clean fclean re bonus onlyo
+.PHONY: all clean fclean re bonus
 
 all: $(NAME)
 
@@ -21,8 +21,6 @@ all: $(NAME)
 
 $(NAME) : $(OBJECTS)
 	ar rcs $@ $? 
-
-onlyo: $(OBJECTS)
 
 bonus: $(OBJECTS_BONUS)
 	ar rcs $(NAME) $^ 
