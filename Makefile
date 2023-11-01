@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: svidot <svidot@student.42.fr>              +#+  +:+       +#+         #
+#    By: seblin <seblin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/29 08:16:28 by seblin            #+#    #+#              #
-#    Updated: 2023/10/31 12:11:28 by svidot           ###   ########.fr        #
+#    Updated: 2023/10/31 22:39:03 by seblin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,21 +17,26 @@ NAME = libftprintf.a
 SOURCES = ft_printf.c
 OBJECTS = $(SOURCES:.c=.o)
 LIBFTDIR = ./libft
-LIBFTOPATH1 = $(wildcard libft/*.o)
-LIBFTOPATH = libft/*.o
-
+#LIBFTOPATH = $(wildcard libft/*.o)
 .PHONY : all libft clean fclean re
 
-all : libft $(NAME)
-
+all : libft test $(NAME)
+	
 libft : 
 	$(MAKE) -C $(LIBFTDIR) onlyo
+	
 	
 %.o : %.c $(HEADER)
 	$(CC) $(CFLAGS) $< -c -o $@
 
-$(NAME) : $(OBJECTS) $(LIBFTOPATH1)
-	ar rcs $@ $? 
+test :
+	$(eval LIBFTOPATH = $(wildcard libft/*.o))
+
+$(NAME) :: $(OBJECTS) $(LIBFTOPATH)
+	ar rcs $@ $(LIBFTOPATH)
+
+$(NAME) :: $(OBJECTS) $(LIBFTOPATH)
+	ar rcs $@  $?
 	
 clean :
 	rm -f $(OBJECTS)

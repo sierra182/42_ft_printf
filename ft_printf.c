@@ -6,14 +6,14 @@
 /*   By: seblin <seblin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 08:04:59 by seblin            #+#    #+#             */
-/*   Updated: 2023/10/31 17:41:55 by seblin           ###   ########.fr       */
+/*   Updated: 2023/10/31 21:33:53 by seblin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
 #include "ft_printf.h"
-#include <stdarg.h> //
-#include <stdint.h>
+#include <stdarg.h> 
+#include <stdint.h> 
 
 static int	putnbr_base(uintptr_t n, unsigned int base, char casse, char pref)
 {
@@ -53,8 +53,8 @@ static void	manage_phlder_seq(const char *s, va_list lst, int *n_item, int *arg)
 		if (!arg)
 		{
 			arg = (int *) "(nil)";
-			*n_item += ft_strlen((char *) arg);
 			ft_putstr_fd((char *) arg, 1);
+			*n_item += 5;
 		}
 		else
 			*n_item += putnbr_base((uintptr_t) arg, 16, 'l', 'x');
@@ -108,7 +108,7 @@ int	ft_printf(const char *s, ...)
 // int	main(void)
 // {
 // 	int res;
-// ////////////
+// ////////////////
 // 	res = ft_printf("NULL %s NULL\n", NULL);
 // 	printf("n_item:%d\n", res);
 // 	//res = printf("NULL %s NULL\n", NULL);

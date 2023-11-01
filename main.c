@@ -1,20 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_toupper.c                                       :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seblin <seblin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/02 17:12:38 by svidot            #+#    #+#             */
-/*   Updated: 2023/10/31 22:44:27 by seblin           ###   ########.fr       */
+/*   Created: 2023/10/31 19:15:15 by seblin            #+#    #+#             */
+/*   Updated: 2023/10/31 20:57:31 by seblin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <ft_printf.h>
 
-int	ft_toupper(int c)
+int	main(void)
 {
-	if (c >= 'a' && c <= 'z')
-		c -= 32;
-	return (c);
-}//
+	ft_printf("test moi bien pour la :%deme fois\n", 42);
+	return (0);
+}
